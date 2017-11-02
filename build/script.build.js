@@ -21,6 +21,8 @@ console.log((' Building Quasar App with "' + env.platform.theme + '" theme...\n'
 
 shell.mkdir('-p', targetPath)
 shell.cp('-R', 'src/statics', targetPath)
+shell.cp('-R', 'src/index.php', targetPath)
+shell.cp('-R', 'src/composer.json', targetPath)
 
 function finalize () {
   console.log((
