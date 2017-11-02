@@ -11,7 +11,7 @@ require(`quasar/dist/quasar.${__THEME}.css`)
 // require(`quasar/dist/quasar.ie.${__THEME}.css`)
 
 import Vue from 'vue'
-import Quasar, { Toast } from 'quasar'
+import Quasar, { Toast, ActionSheet, openURL } from 'quasar'
 import router from './router'
 import store from './store'
 import { to } from './services/helpers.service'
@@ -65,6 +65,33 @@ Quasar.start(() => {
             color: '#f8c1c1'
           })
         }
+      },
+      shareOptions (event) {
+        let gifUrl
+
+        if (event.target.tagName === 'IMG') {
+          gifUrl = event.target.src
+        }
+        else {
+          return false
+        }
+
+        ActionSheet.create({
+          title: 'Share',
+          // specify ONLY IF you want gallery mode:
+          gallery: true,
+
+          actions: [
+            {
+              label: 'Share on Twitter',
+              // Choose one of the following two:
+              icon: 'fa-twitter', // specify ONLY IF using icon
+              handler: function () {
+                openURL(`https://twitter.com/intent/tweet?text=${gifUrl}`)
+              }
+            }
+          ]
+        })
       }
     },
     render: h => h(require('./App').default)

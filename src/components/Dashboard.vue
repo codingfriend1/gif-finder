@@ -20,7 +20,12 @@
         <q-spinner-oval size="50px" color="primary"></q-spinner-oval>
       </q-inner-loading>
 
-      <q-gallery-carousel v-if="matchingGIFs.length" @slide="setVisibleGif" infinite dots fullscreen handle-arrow-keys :src="slider"></q-gallery-carousel>
+      <q-gallery-carousel v-if="matchingGIFs.length && $q.platform.is.mobile" @slide="setVisibleGif" infinite dots fullscreen handle-arrow-keys :src="slider"></q-gallery-carousel>
+
+      <div @click="$root.shareOptions">
+        <q-gallery v-if="matchingGIFs.length && $q.platform.is.desktop" :src="slider"></q-gallery>
+      </div>
+      
     </div>
   </div>
 </template>
@@ -31,7 +36,8 @@ import {
   QSearch,
   QInnerLoading,
   QSpinnerOval,
-  QGalleryCarousel
+  QGalleryCarousel,
+  QGallery
 } from 'quasar'
 
 export default {
@@ -40,7 +46,8 @@ export default {
     QSearch,
     QInnerLoading,
     QSpinnerOval,
-    QGalleryCarousel
+    QGalleryCarousel,
+    QGallery
   },
   computed: {
     slider () {

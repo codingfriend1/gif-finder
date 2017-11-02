@@ -5,7 +5,13 @@
     class="bg-tertiary full-height relative-position"
   >
     <q-toolbar slot="header" class="bg-black">
-
+      <q-btn
+        v-if="$router.currentRoute.path !== '/'"
+        flat
+        v-go-back=" '/' "
+      >
+        <q-icon name="arrow_back" />
+      </q-btn>
       <q-toolbar-title>
         There's a GIF for that
       </q-toolbar-title>
@@ -13,7 +19,7 @@
 
     <router-view />
 
-    <div slot="footer" v-show="matchingGIFs.length || $router.currentRoute.path === '/'" class="footer bg-faded">
+    <div slot="footer" v-show="(matchingGIFs.length && $q.platform.is.mobile) || $router.currentRoute.path === '/'" class="footer bg-faded">
       <q-btn v-show="$router.currentRoute.path === '/'" class="full-width" inverted color="faded" @click="launch('https://giphy.com/gifs/laughing-laugh-ricky-gervais-CoDp6NnSmItoY')">via GIPHY</q-btn>
       <div v-show="matchingGIFs.length && $router.currentRoute.path !== '/'">
         <q-btn class="full-width" icon="fa-twitter" inverted color="primary" @click="tweetGif(visibleGifUrl)">Share on twitter</q-btn>
@@ -28,7 +34,9 @@ import {
   QLayout,
   QToolbar,
   QToolbarTitle,
-  QBtn
+  QBtn,
+  QIcon,
+  GoBack
 } from 'quasar'
 
 export default {
@@ -37,7 +45,11 @@ export default {
     QLayout,
     QToolbar,
     QToolbarTitle,
-    QBtn
+    QBtn,
+    QIcon
+  },
+  directives: {
+    GoBack
   },
   store: ['matchingGIFs', 'visibleGifUrl'],
   methods: {
