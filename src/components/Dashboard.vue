@@ -94,15 +94,5 @@ export default {
     img
       max-width 100%
       border-radius 3px
-      
-    .gif-image-container
-      height 350px
-    
-      .gif-itself
-        max-height 350px
-        
-  .share-btns
-    margin-top 1em
-    
 
 </style>
